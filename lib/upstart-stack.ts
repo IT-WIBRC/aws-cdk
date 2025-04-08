@@ -1,16 +1,27 @@
-import * as cdk from 'aws-cdk-lib';
+import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { Instance, MachineImage, InstanceSize, InstanceClass, InstanceType, Vpc } from "aws-cdk-lib/aws-ec2";
 
-export class UpstartStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+export class CdkEc2DeployStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const vpc = Vpc.fromLookup(
+      this,
+      "firstCdkVps",
+      {
+        isDefault: true,
+      }
+    );
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'UpstartQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    const instance = new Instance(
+      this,
+      "ecsInstance",
+      {
+        vpc,
+        machineImage: MachineImage.latestAmazonLinux2023(),
+        instanceType: InstanceType.of(InstanceClass.T2, InstanceSize.MICRO),
+      }
+    )
   }
 }

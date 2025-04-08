@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import * as cdk from 'aws-cdk-lib';
-import { UpstartStack } from '../lib/upstart-stack';
+import { App } from 'aws-cdk-lib';
+import { CdkEc2DeployStack } from '../lib/upstart-stack';
 
-const app = new cdk.App();
-new UpstartStack(app, 'UpstartStack', {
+const app = new App();
+new CdkEc2DeployStack(app, 'UpstartStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
@@ -14,7 +14,7 @@ new UpstartStack(app, 'UpstartStack', {
 
   /* Uncomment the next line if you know exactly what Account and Region you
    * want to deploy the stack to. */
-  // env: { account: '123456789012', region: 'us-east-1' },
+  env: { account: '378164385311', region: 'us-east-1' },
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
